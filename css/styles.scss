@@ -1,0 +1,413 @@
+/* Main Styles for Login Registration System */
+
+// Variables
+$font-family: 'Helvetica Neue', Arial, sans-serif;
+$line-height: 1.6;
+$primary-color: #2e7bd8;
+$primary-hover-color: #1a66c1;
+$danger-color: #dc3545;
+$danger-hover-color: #c82333;
+$light-bg-color: #f4f4f4;
+$lighter-bg-color: #f9f9f9;
+$lightest-bg-color: #f1f1f1;
+$table-header-bg: #f2f2f2;
+$border-color: #ddd;
+$white: white;
+$black: black;
+$red: red;
+$green: green;
+$tab-bg: #eee;
+$box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+$border-radius: 5px;
+$spacing-sm: 5px;
+$spacing-md: 10px;
+$spacing-lg: 15px;
+$spacing-xl: 20px;
+
+// Mixins
+@mixin box-shadow($shadow: $box-shadow) {
+  box-shadow: $shadow;
+}
+
+@mixin border-radius($radius: $border-radius) {
+  border-radius: $radius;
+}
+
+@mixin margin-bottom($size: $spacing-md) {
+  margin-bottom: $size;
+}
+
+@mixin padding($size: $spacing-md) {
+  padding: $size;
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* General Styles */
+body {
+  font-family: $font-family;
+  line-height: $line-height;
+  margin: 0;
+  padding: 0;
+  background-color: $light-bg-color;
+}
+
+/* Navigation Styles */
+.main-nav {
+  background-color: $primary-color;
+  color: $white;
+  padding: $spacing-md 0;
+  margin-bottom: $spacing-xl;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 $spacing-xl;
+}
+
+.nav-brand {
+  font-size: 1.5em;
+  font-weight: 400;
+
+  a {
+    color: $white;
+    text-decoration: none;
+
+    &:hover {
+      color: darken($white, 10%);
+    }
+  }
+}
+
+.nav-menu {
+  ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      margin-left: $spacing-lg;
+
+      a {
+        color: $white;
+        text-decoration: none;
+        text-transform: uppercase;
+        padding: $spacing-md;
+        @include border-radius;
+        transition: all ease-in-out 0.3s;
+
+        &:hover {
+          background-color: $primary-hover-color;
+        }
+      }
+    }
+  }
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: $white;
+  padding: $spacing-xl;
+  @include border-radius;
+  @include box-shadow;
+  margin-bottom: $spacing-xl;
+    &.admin {
+        max-width: 1200px !important;
+    }
+}
+
+h1, h2 {
+  text-align: center;
+  @include margin-bottom($spacing-xl);
+}
+
+/* Form Styles */
+.form-group {
+  @include margin-bottom($spacing-lg);
+}
+
+label {
+  display: block;
+  margin-bottom: $spacing-sm;
+  font-weight: bold;
+}
+
+input {
+  &[type="text"],
+  &[type="email"],
+  &[type="password"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid $border-color;
+    @include border-radius;
+    box-sizing: border-box;
+  }
+}
+
+.password-requirements {
+  display: block;
+  color: #666;
+  font-size: 0.85em;
+  margin-top: $spacing-sm;
+  font-style: italic;
+}
+
+.btn {
+  display: inline-block;
+  background: $primary-color;
+  color: $white;
+  padding: $spacing-md $spacing-lg;
+  border: none;
+  @include border-radius;
+  cursor: pointer;
+  text-decoration: none;
+  margin-right: $spacing-md;
+  transition: all ease-in-out 0.3s;
+
+  &:hover {
+    background: $primary-hover-color;
+  }
+
+  &-danger {
+    background: $danger-color;
+
+    &:hover {
+      background: $danger-hover-color;
+    }
+  }
+
+  &-secondary {
+    background: #6c757d;
+
+    &:hover {
+      background: #5a6268;
+    }
+  }
+
+  &-sm {
+    padding: $spacing-sm $spacing-md;
+    font-size: 0.9em;
+  }
+}
+
+/* Message Styles */
+.error {
+  color: $red;
+  @include margin-bottom($spacing-md);
+}
+
+.success {
+  color: $green;
+  @include margin-bottom($spacing-md);
+}
+
+/* Tab Styles */
+.tabs {
+  display: flex;
+  @include margin-bottom($spacing-xl);
+}
+
+.tab {
+  flex: 1;
+  text-align: center;
+  padding: $spacing-md;
+  background: $tab-bg;
+  cursor: pointer;
+
+  &.active {
+    background: $primary-color;
+    color: $white;
+  }
+}
+
+.tab-content {
+  display: none;
+
+  &.active {
+    display: block;
+  }
+}
+
+/* Landing Page Styles */
+.landing-intro, .landing-actions, .landing-features {
+  @include margin-bottom($spacing-xl);
+}
+
+.landing-intro ul {
+  margin-left: $spacing-xl;
+  @include margin-bottom($spacing-lg);
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: $spacing-lg;
+}
+
+.feature {
+  background: $lighter-bg-color;
+  padding: $spacing-lg;
+  @include border-radius;
+
+  h3 {
+    @include margin-bottom($spacing-sm);
+  }
+}
+
+/* User Info Styles */
+.user-info {
+  background: $lighter-bg-color;
+  padding: $spacing-lg;
+  @include border-radius;
+  @include margin-bottom($spacing-xl);
+}
+
+/* Profile Form Styles */
+.profile-form {
+  background: $lighter-bg-color;
+  padding: $spacing-lg;
+  @include border-radius;
+  @include margin-bottom($spacing-xl);
+
+  .form-actions {
+    margin-top: $spacing-xl;
+  }
+}
+
+/* Admin Panel Styles */
+.navigation {
+  @include margin-bottom($spacing-xl);
+}
+
+.action-buttons {
+  @include margin-bottom($spacing-xl);
+}
+
+.user-form {
+  background: $lighter-bg-color;
+  padding: $spacing-xl;
+  @include border-radius;
+  @include margin-bottom($spacing-xl);
+  border: 1px solid $border-color;
+
+  h3 {
+    margin-top: 0;
+    @include margin-bottom($spacing-xl);
+  }
+}
+
+select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid $border-color;
+  @include border-radius;
+  box-sizing: border-box;
+  background-color: $white;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  @include margin-bottom($spacing-xl);
+
+  &, th, td {
+    border: 1px solid $border-color;
+  }
+
+  th, td {
+    padding: 12px;
+    text-align: left;
+  }
+
+  th {
+    background-color: $table-header-bg;
+    font-weight: bold;
+  }
+
+  tr {
+    &:nth-child(even) {
+      background-color: $lighter-bg-color;
+    }
+
+    &:hover {
+      background-color: $lightest-bg-color;
+    }
+  }
+}
+
+.shadow {
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.footer-nav {
+  background-color: $white;
+  color: $black;
+  padding: $spacing-md 0;
+
+  p {
+    margin: 0;
+  }
+
+}
+
+.footer-brand {
+  font-size: 1.5em;
+  font-weight: 300;
+
+  a {
+    color: $black;
+    text-decoration: none;
+
+    &:hover {
+      color: darken($white, 10%);
+    }
+  }
+}
+
+#passwordStrength {
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+#passwordStrength_edit {
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.password-input-container {
+  position: relative;
+  display: inline-block;
+  width: 100%; /* or whatever width you want */
+}
+
+.password-input-container input {
+  width: 100%;
+  padding-right: 40px; /* Make room for the icon */
+  box-sizing: border-box;
+}
+
+.password-toggle-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #666;
+}

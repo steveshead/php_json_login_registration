@@ -22,7 +22,9 @@ if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
 
 // Get user information from session
 $user_id = $_SESSION['user_id'];
-$user_name = $_SESSION['user_name'];
+$user_first_name = isset($_SESSION['user_first_name']) ? $_SESSION['user_first_name'] : '';
+$user_last_name = isset($_SESSION['user_last_name']) ? $_SESSION['user_last_name'] : '';
+$user_name = $user_first_name . ' ' . $user_last_name; // For backward compatibility
 $user_username = isset($_SESSION['user_username']) ? $_SESSION['user_username'] : '';
 $user_role = $_SESSION['user_role'];
 
@@ -63,8 +65,12 @@ if (file_exists($users_file)) {
             <form action="auth.php" method="post">
                 <input type="hidden" name="action" value="add_user">
                 <div class="form-group">
-                    <label for="add-name">Full Name</label>
-                    <input type="text" id="add-name" name="name" required>
+                    <label for="add-first-name">First Name</label>
+                    <input type="text" id="add-first-name" name="first_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="add-last-name">Last Name</label>
+                    <input type="text" id="add-last-name" name="last_name" required>
                 </div>
                 <div class="form-group">
                     <label for="add-username">Username</label>
@@ -106,8 +112,12 @@ if (file_exists($users_file)) {
                 <input type="hidden" name="action" value="edit_user">
                 <input type="hidden" id="edit-id" name="id">
                 <div class="form-group">
-                    <label for="edit-name">Full Name</label>
-                    <input type="text" id="edit-name" name="name" required>
+                    <label for="edit-first-name">First Name</label>
+                    <input type="text" id="edit-first-name" name="first_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-last-name">Last Name</label>
+                    <input type="text" id="edit-last-name" name="last_name" required>
                 </div>
                 <div class="form-group">
                     <label for="edit-username">Username</label>
@@ -146,7 +156,8 @@ if (file_exists($users_file)) {
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Name</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
                     <th>Username</th>
                     <th>Email</th>
                     <th>Role</th>
@@ -158,14 +169,15 @@ if (file_exists($users_file)) {
                 <?php foreach ($users as $user): ?>
                 <tr>
                     <td><?php echo htmlspecialchars($user['id']); ?></td>
-                    <td><?php echo htmlspecialchars($user['name']); ?></td>
+                    <td><?php echo isset($user['first_name']) ? htmlspecialchars($user['first_name']) : htmlspecialchars($user['name']); ?></td>
+                    <td><?php echo isset($user['last_name']) ? htmlspecialchars($user['last_name']) : ''; ?></td>
                     <td><?php echo isset($user['username']) ? htmlspecialchars($user['username']) : 'N/A'; ?></td>
                     <td><?php echo htmlspecialchars($user['email']); ?></td>
                     <td><?php echo isset($user['role']) ? htmlspecialchars(ucfirst($user['role'])) : 'Member'; ?></td>
                     <td><?php echo date('jS F, Y h:i A', strtotime($user['created_at'])); ?></td>
                     <td>
                         <button class="btn btn-sm" onclick="editUser('<?php echo $user['id']; ?>')">Edit</button>
-                        <button class="btn btn-danger btn-sm" onclick="deleteUser('<?php echo $user['id']; ?>', '<?php echo htmlspecialchars(addslashes($user['name'])); ?>')">Delete</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteUser('<?php echo $user['id']; ?>', '<?php echo isset($user['first_name']) ? htmlspecialchars(addslashes($user['first_name'] . ' ' . $user['last_name'])) : htmlspecialchars(addslashes($user['name'])); ?>')">Delete</button>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -194,7 +206,25 @@ $pageScript = "
         if (user) {
             // Populate the form fields
             document.getElementById('edit-id').value = user.id;
-            document.getElementById('edit-name').value = user.name;
+
+            // Handle first name and last name (with backward compatibility)
+            if (user.first_name !== undefined) {
+                document.getElementById('edit-first-name').value = user.first_name;
+            } else if (user.name !== undefined) {
+                // If only name exists, try to split it into first and last name
+                const nameParts = user.name.split(' ');
+                document.getElementById('edit-first-name').value = nameParts[0] || '';
+                document.getElementById('edit-last-name').value = nameParts.slice(1).join(' ') || '';
+            } else {
+                document.getElementById('edit-first-name').value = '';
+            }
+
+            if (user.last_name !== undefined) {
+                document.getElementById('edit-last-name').value = user.last_name;
+            } else if (user.first_name === undefined && user.name === undefined) {
+                document.getElementById('edit-last-name').value = '';
+            }
+
             document.getElementById('edit-username').value = user.username || '';
             document.getElementById('edit-email').value = user.email;
             document.getElementById('edit-role').value = user.role || 'member';

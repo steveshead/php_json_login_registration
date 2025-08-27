@@ -56,8 +56,12 @@ unset($_SESSION['success']);
     <form action="auth.php" method="post">
         <input type="hidden" name="action" value="register">
         <div class="form-group">
-            <label for="register-name">Full Name</label>
-            <input type="text" id="register-name" name="name" required>
+            <label for="register-first-name">First Name</label>
+            <input type="text" id="register-first-name" name="first_name" required>
+        </div>
+        <div class="form-group">
+            <label for="register-last-name">Last Name</label>
+            <input type="text" id="register-last-name" name="last_name" required>
         </div>
         <div class="form-group">
             <label for="register-username">Username</label>

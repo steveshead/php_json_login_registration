@@ -14,7 +14,8 @@ if (!isset($_SESSION['user_id'])) {
 
 // Get user information from session
 $user_id = $_SESSION['user_id'];
-$user_name = $_SESSION['user_name'];
+$user_first_name = isset($_SESSION['user_first_name']) ? $_SESSION['user_first_name'] : '';
+$user_last_name = isset($_SESSION['user_last_name']) ? $_SESSION['user_last_name'] : '';
 $user_email = $_SESSION['user_email'];
 $user_username = isset($_SESSION['user_username']) ? $_SESSION['user_username'] : '';
 
@@ -61,8 +62,13 @@ if ($current_user === null) {
         <input type="hidden" name="id" value="<?php echo htmlspecialchars($user_id); ?>">
 
         <div class="form-group">
-            <label for="name">Full Name</label>
-            <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($current_user['name']); ?>" required>
+            <label for="first_name">First Name</label>
+            <input type="text" id="first_name" name="first_name" value="<?php echo htmlspecialchars($current_user['first_name']); ?>" required>
+        </div>
+
+        <div class="form-group">
+            <label for="last_name">Last Name</label>
+            <input type="text" id="last_name" name="last_name" value="<?php echo htmlspecialchars($current_user['last_name']); ?>" required>
         </div>
 
         <div class="form-group">

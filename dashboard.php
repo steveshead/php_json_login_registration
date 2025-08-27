@@ -14,7 +14,9 @@ if (!isset($_SESSION['user_id'])) {
 
 // Get user information from session
 $user_id = $_SESSION['user_id'];
-$user_name = $_SESSION['user_name'];
+$user_first_name = isset($_SESSION['user_first_name']) ? $_SESSION['user_first_name'] : '';
+$user_last_name = isset($_SESSION['user_last_name']) ? $_SESSION['user_last_name'] : '';
+$user_name = $user_first_name . ' ' . $user_last_name; // For backward compatibility
 $user_email = $_SESSION['user_email'];
 $user_username = isset($_SESSION['user_username']) ? $_SESSION['user_username'] : '';
 $user_role = isset($_SESSION['user_role']) ? $_SESSION['user_role'] : 'member';
@@ -24,7 +26,8 @@ $user_role = isset($_SESSION['user_role']) ? $_SESSION['user_role'] : 'member';
 
 <div class="user-info">
     <h2>Your Profile</h2>
-    <p><strong>Name:</strong> <?php echo htmlspecialchars($user_name); ?></p>
+    <p><strong>First Name:</strong> <?php echo htmlspecialchars($user_first_name); ?></p>
+    <p><strong>Last Name:</strong> <?php echo htmlspecialchars($user_last_name); ?></p>
     <p><strong>Username:</strong> <?php echo htmlspecialchars($user_username); ?></p>
     <p><strong>Email:</strong> <?php echo htmlspecialchars($user_email); ?></p>
     <p><strong>Role:</strong> <?php echo htmlspecialchars(ucfirst($user_role)); ?></p>

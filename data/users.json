@@ -2,6 +2,8 @@
     {
         "id": "1",
         "name": "Admin User",
+        "first_name": "Admin",
+        "last_name": "User",
         "username": "admin",
         "email": "admin@gmail.com",
         "password": "$2y$10$Hp9OlJ0uA18pXL1BLEg4VeF9h3TKq609IseZP8XdZ1b.RXXFh8Ui2",
@@ -11,6 +13,8 @@
     {
         "id": "2",
         "name": "Member User",
+        "first_name": "Member",
+        "last_name": "User",
         "username": "member",
         "email": "member@gmail.com",
         "password": "$2y$10$Hdu0Kdr1H44NU4n2RepASe2q06YuqXw2fxUTgEcc\/CMdNGGON3e1W",

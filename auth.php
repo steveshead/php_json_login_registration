@@ -104,14 +104,15 @@ function handleRegistration() {
     global $users_file;
 
     // Get form data
-    $name = isset($_POST['name']) ? trim($_POST['name']) : '';
+    $first_name = isset($_POST['first_name']) ? trim($_POST['first_name']) : '';
+    $last_name = isset($_POST['last_name']) ? trim($_POST['last_name']) : '';
     $username = isset($_POST['username']) ? trim($_POST['username']) : '';
     $email = isset($_POST['email']) ? trim($_POST['email']) : '';
     $password = isset($_POST['password']) ? $_POST['password'] : '';
     $confirm_password = isset($_POST['confirm_password']) ? $_POST['confirm_password'] : '';
 
     // Validate form data
-    if (empty($name) || empty($username) || empty($email) || empty($password) || empty($confirm_password)) {
+    if (empty($first_name) || empty($last_name) || empty($username) || empty($email) || empty($password) || empty($confirm_password)) {
         $_SESSION['error'] = 'All fields are required.';
         header('Location: login.php');
         exit;
@@ -178,7 +179,8 @@ function handleRegistration() {
     // Create new user with incremented ID
     $new_user = [
         'id' => (string)($highest_id + 1),
-        'name' => $name,
+        'first_name' => $first_name,
+        'last_name' => $last_name,
         'username' => $username,
         'email' => $email,
         'password' => password_hash($password, PASSWORD_DEFAULT),
@@ -215,7 +217,8 @@ function handleAddUser() {
     }
 
     // Get form data
-    $name = isset($_POST['name']) ? trim($_POST['name']) : '';
+    $first_name = isset($_POST['first_name']) ? trim($_POST['first_name']) : '';
+    $last_name = isset($_POST['last_name']) ? trim($_POST['last_name']) : '';
     $username = isset($_POST['username']) ? trim($_POST['username']) : '';
     $email = isset($_POST['email']) ? trim($_POST['email']) : '';
     $password = isset($_POST['password']) ? $_POST['password'] : '';
@@ -223,7 +226,7 @@ function handleAddUser() {
     $role = isset($_POST['role']) ? $_POST['role'] : 'member';
 
     // Validate form data
-    if (empty($name) || empty($username) || empty($email) || empty($password) || empty($confirm_password)) {
+    if (empty($first_name) || empty($last_name) || empty($username) || empty($email) || empty($password) || empty($confirm_password)) {
         $_SESSION['error'] = 'All fields are required.';
         header('Location: admin.php');
         exit;
@@ -294,7 +297,8 @@ function handleAddUser() {
     // Create new user with incremented ID
     $new_user = [
         'id' => (string)($highest_id + 1),
-        'name' => $name,
+        'first_name' => $first_name,
+        'last_name' => $last_name,
         'username' => $username,
         'email' => $email,
         'password' => password_hash($password, PASSWORD_DEFAULT),
@@ -332,7 +336,8 @@ function handleEditUser() {
 
     // Get form data
     $id = isset($_POST['id']) ? trim($_POST['id']) : '';
-    $name = isset($_POST['name']) ? trim($_POST['name']) : '';
+    $first_name = isset($_POST['first_name']) ? trim($_POST['first_name']) : '';
+    $last_name = isset($_POST['last_name']) ? trim($_POST['last_name']) : '';
     $username = isset($_POST['username']) ? trim($_POST['username']) : '';
     $email = isset($_POST['email']) ? trim($_POST['email']) : '';
     $password = isset($_POST['password']) ? $_POST['password'] : '';
@@ -340,8 +345,8 @@ function handleEditUser() {
     $role = isset($_POST['role']) ? $_POST['role'] : 'member';
 
     // Validate form data
-    if (empty($id) || empty($name) || empty($username) || empty($email)) {
-        $_SESSION['error'] = 'ID, Name, Username, and Email are required.';
+    if (empty($id) || empty($first_name) || empty($last_name) || empty($username) || empty($email)) {
+        $_SESSION['error'] = 'ID, First Name, Last Name, Username, and Email are required.';
         header('Location: admin.php');
         exit;
     }
@@ -422,7 +427,8 @@ function handleEditUser() {
     }
 
     // Update user data
-    $users[$user_index]['name'] = $name;
+    $users[$user_index]['first_name'] = $first_name;
+    $users[$user_index]['last_name'] = $last_name;
     $users[$user_index]['username'] = $username;
     $users[$user_index]['email'] = $email;
     $users[$user_index]['role'] = $role;
@@ -521,7 +527,8 @@ function handleUpdateProfile() {
 
     // Get form data
     $id = isset($_POST['id']) ? trim($_POST['id']) : '';
-    $name = isset($_POST['name']) ? trim($_POST['name']) : '';
+    $first_name = isset($_POST['first_name']) ? trim($_POST['first_name']) : '';
+    $last_name = isset($_POST['last_name']) ? trim($_POST['last_name']) : '';
     $username = isset($_POST['username']) ? trim($_POST['username']) : '';
     $email = isset($_POST['email']) ? trim($_POST['email']) : '';
     $password = isset($_POST['password']) ? $_POST['password'] : '';
@@ -535,8 +542,8 @@ function handleUpdateProfile() {
     }
 
     // Validate form data
-    if (empty($id) || empty($name) || empty($username) || empty($email)) {
-        $_SESSION['error'] = 'Name, Username, and Email are required.';
+    if (empty($id) || empty($first_name) || empty($last_name) || empty($username) || empty($email)) {
+        $_SESSION['error'] = 'First Name, Last Name, Username, and Email are required.';
         header('Location: profile.php');
         exit;
     }
@@ -610,7 +617,8 @@ function handleUpdateProfile() {
     }
 
     // Update user data
-    $users[$user_index]['name'] = $name;
+    $users[$user_index]['first_name'] = $first_name;
+    $users[$user_index]['last_name'] = $last_name;
     $users[$user_index]['username'] = $username;
     $users[$user_index]['email'] = $email;
 
@@ -622,7 +630,8 @@ function handleUpdateProfile() {
     // Save updated users array to JSON file
     if (file_put_contents($users_file, json_encode($users, JSON_PRETTY_PRINT))) {
         // Update session variables
-        $_SESSION['user_name'] = $name;
+        $_SESSION['user_first_name'] = $first_name;
+        $_SESSION['user_last_name'] = $last_name;
         $_SESSION['user_email'] = $email;
         $_SESSION['user_username'] = $username;
 
@@ -665,7 +674,8 @@ function handleLogin() {
             if (password_verify($password, $user['password'])) {
                 // Set session variables
                 $_SESSION['user_id'] = $user['id'];
-                $_SESSION['user_name'] = $user['name'];
+                $_SESSION['user_first_name'] = $user['first_name'];
+                $_SESSION['user_last_name'] = $user['last_name'];
                 $_SESSION['user_email'] = $user['email'];
                 $_SESSION['user_username'] = isset($user['username']) ? $user['username'] : '';
                 $_SESSION['user_role'] = isset($user['role']) ? $user['role'] : 'member';

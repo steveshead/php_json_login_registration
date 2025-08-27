@@ -16,7 +16,7 @@ A secure user management system built with PHP that uses JSON files for data sto
 
 - **Profile Management**
   - View user profile information
-  - Edit profile details
+  - Edit profile details (first name, last name, username, email)
   - Update password
 
 - **Admin Controls**

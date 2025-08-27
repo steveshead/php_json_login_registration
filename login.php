@@ -74,7 +74,7 @@ unset($_SESSION['success']);
         <div class="form-group">
             <label for="register-password">Password</label>
             <div class="password-input-container">
-                <input type="password" id="register-password" placeholder="Password">
+                <input type="password" id="register-password" name="password" placeholder="Password">
                 <i class="fas fa-eye password-toggle-icon" onclick="togglePasswordVisibility(this)"></i>
             </div>
             <div id="passwordStrength"></div>

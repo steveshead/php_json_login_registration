@@ -22,7 +22,11 @@ $user_username = isset($_SESSION['user_username']) ? $_SESSION['user_username'] 
 $user_role = isset($_SESSION['user_role']) ? $_SESSION['user_role'] : 'member';
 ?>
 
-<h1>Welcome to Your Dashboard</h1>
+<?php if (isset($_SESSION['user_first_name']) && !empty($_SESSION['user_first_name'])): ?>
+    <h1>Welcome to your dashboard, <span class="blue"><?= $_SESSION['user_first_name'] ?></span>!</h1>
+<?php else: ?>
+    <h1>Welcome to tto your dashboard</h1>
+<?php endif; ?>
 
 <div class="user-info">
     <h2>Your Profile</h2>

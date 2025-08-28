@@ -131,6 +131,10 @@ h1, h2 {
   @include margin-bottom($spacing-xl);
 }
 
+.uppercase {
+  text-transform: uppercase;
+}
+
 /* Form Styles */
 .form-group {
   @include margin-bottom($spacing-lg);
@@ -410,4 +414,8 @@ table {
   transform: translateY(-50%);
   cursor: pointer;
   color: #666;
+}
+
+.blue {
+  color: $primary-color;
 }

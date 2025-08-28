@@ -6,7 +6,11 @@ $pageTitle = 'Welcome to Our System';
 include 'header.php';
 ?>
 
-<h1>Welcome to Our Login & Registration System</h1>
+<?php if (isset($_SESSION['user_first_name']) && !empty($_SESSION['user_first_name'])): ?>
+    <h1>Welcome <span class="blue"><?= $_SESSION['user_first_name'] ?></span>, to the Login & Registration System</h1>
+<?php else: ?>
+    <h1>Welcome to the Login & Registration System</h1>
+<?php endif; ?>
 
 <div class="landing-intro">
     <p>This is a secure user management system that allows you to:</p>

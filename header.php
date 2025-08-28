@@ -53,7 +53,7 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['last_activity'])) {
     <div class="main-nav shadow">
         <div class="nav-container">
             <div class="nav-brand">
-                <a href="index.php">Login System</a>
+                <a href="index.php" class="uppercase">Login System</a>
             </div>
             <nav class="nav-menu">
                 <ul>

@@ -3,7 +3,7 @@
         <div class="footer-nav">
             <div class="nav-container">
                 <div class="footer-brand">
-                    <a href="index.php">Login System</a>
+                    <a href="index.php" class="uppercase">Login System</a>
                 </div>
                 <p class="copyright">&copy; Copyright <?=date('Y')?> Company, Inc. All rights reserved.</p>
             </div>

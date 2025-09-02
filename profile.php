@@ -57,9 +57,25 @@ if ($current_user === null) {
 <?php endif; ?>
 
 <div class="profile-form">
-    <form action="auth.php" method="post">
+    <form action="auth.php" method="post" enctype="multipart/form-data">
         <input type="hidden" name="action" value="update_profile">
         <input type="hidden" name="id" value="<?php echo htmlspecialchars($user_id); ?>">
+
+        <div class="form-group">
+            <label for="profile_photo">Profile Photo</label>
+            <div class="profile-photo-container">
+                <?php if (isset($current_user['photo']) && !empty($current_user['photo'])): ?>
+                    <img src="<?php echo htmlspecialchars($current_user['photo']); ?>" alt="Profile Photo" class="profile-photo-preview">
+                <?php else: ?>
+                    <img src="uploads/profile_photos/default_avatar.png" alt="Default Avatar" class="profile-photo-preview">
+                <?php endif; ?>
+            </div>
+            <div class="custom-file-input">
+                <input type="file" id="profile_photo" name="profile_photo" accept="image/*">
+                <label for="profile_photo" class="custom-file-label">Choose file</label>
+            </div>
+            <small>Upload a profile photo (JPG, PNG, or GIF). Max size: 2MB.</small>
+        </div>
 
         <div class="form-group">
             <label for="first_name">First Name</label>

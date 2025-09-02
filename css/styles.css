@@ -10,7 +10,7 @@ body {
 
 /* Navigation Styles */
 .main-nav {
-  background-color: #2e7bd8;
+  background-color: #2E7BD8FF;
   color: white;
   padding: 10px 0;
   margin-bottom: 20px;
@@ -109,7 +109,7 @@ input[type=text], input[type=email], input[type=password] {
 
 .btn {
   display: inline-block;
-  background: #2e7bd8;
+  background: #2E7BD8FF;
   color: white;
   padding: 10px 15px;
   border: none;
@@ -164,7 +164,7 @@ input[type=text], input[type=email], input[type=password] {
   cursor: pointer;
 }
 .tab.active {
-  background: #2e7bd8;
+  background: #2E7BD8FF;
   color: white;
 }
 
@@ -206,6 +206,95 @@ input[type=text], input[type=email], input[type=password] {
   padding: 15px;
   border-radius: 5px;
   margin-bottom: 20px;
+}
+
+/* Profile Photo Styles */
+/* Custom File Input Styles */
+.profile-photo-container {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.profile-photo-display {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.profile-photo {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin-bottom: 10px;
+}
+
+.profile-photo-preview {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin-bottom: 10px;
+}
+
+.custom-file-input {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+.custom-file-input label {
+  margin-bottom: 0;
+}
+.custom-file-input input[type=file] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  z-index: 2;
+}
+.custom-file-input input[type=file]:focus + .custom-file-label {
+  border-color: #1a66c1;
+  box-shadow: 0 0 0 0.2rem rgba(26, 102, 193, 0.25);
+}
+.custom-file-input:hover .custom-file-label {
+  border-color: #c4c4c4;
+}
+
+.custom-file-label {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: white;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.custom-file-label::after {
+  content: "Browse";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 4px 10px;
+  background-color: #2E7BD8FF;
+  color: white;
+  border-radius: 0 5px 5px 0;
+  border-left: 1px solid #ddd;
+  font-size: 0.9em;
+  height: calc(100% - 8px);
+  display: flex;
+  align-items: center;
 }
 
 /* Profile Form Styles */
@@ -338,7 +427,7 @@ table tr:hover {
 }
 
 .blue {
-  color: #2e7bd8;
+  color: #2E7BD8FF;
 }
 
 /*# sourceMappingURL=styles.css.map */

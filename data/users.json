@@ -8,7 +8,8 @@
         "email": "admin@gmail.com",
         "password": "$2y$10$Hp9OlJ0uA18pXL1BLEg4VeF9h3TKq609IseZP8XdZ1b.RXXFh8Ui2",
         "role": "admin",
-        "created_at": "2025-08-19 16:46:19"
+        "created_at": "2025-08-19 16:46:19",
+        "photo": "uploads\/profile_photos\/user_1_1756779255.jpg"
     },
     {
         "id": "2",

@@ -14,6 +14,23 @@
 
         <script>
             // Common JavaScript functions can be placed here
+
+            // Custom file input label update
+            document.addEventListener('DOMContentLoaded', function() {
+                const fileInputs = document.querySelectorAll('.custom-file-input input[type="file"]');
+
+                fileInputs.forEach(input => {
+                    input.addEventListener('change', function() {
+                        const label = this.nextElementSibling;
+                        if (this.files && this.files.length > 0) {
+                            label.textContent = this.files[0].name;
+                        } else {
+                            label.textContent = 'Choose file';
+                        }
+                    });
+                });
+            });
+
             <?php if (isset($pageScript)): ?>
             <?php echo $pageScript; ?>
             <?php endif; ?>

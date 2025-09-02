@@ -25,11 +25,20 @@ $user_role = isset($_SESSION['user_role']) ? $_SESSION['user_role'] : 'member';
 <?php if (isset($_SESSION['user_first_name']) && !empty($_SESSION['user_first_name'])): ?>
     <h1>Welcome to your dashboard, <span class="blue"><?= $_SESSION['user_first_name'] ?></span>!</h1>
 <?php else: ?>
-    <h1>Welcome to tto your dashboard</h1>
+    <h1>Welcome to your dashboard</h1>
 <?php endif; ?>
 
 <div class="user-info">
     <h2>Your Profile</h2>
+
+    <div class="profile-photo-display">
+        <?php if (isset($_SESSION['user_photo']) && !empty($_SESSION['user_photo'])): ?>
+            <img src="<?php echo htmlspecialchars($_SESSION['user_photo']); ?>" alt="Profile Photo" class="profile-photo">
+        <?php else: ?>
+            <img src="uploads/profile_photos/default_avatar.png" alt="Default Avatar" class="profile-photo">
+        <?php endif; ?>
+    </div>
+
     <p><strong>First Name:</strong> <?php echo htmlspecialchars($user_first_name); ?></p>
     <p><strong>Last Name:</strong> <?php echo htmlspecialchars($user_last_name); ?></p>
     <p><strong>Username:</strong> <?php echo htmlspecialchars($user_username); ?></p>

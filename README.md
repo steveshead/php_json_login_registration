@@ -18,6 +18,8 @@ A secure user management system built with PHP that uses JSON files for data sto
   - View user profile information
   - Edit profile details (first name, last name, username, email)
   - Update password
+  - Upload and manage profile photos
+  - Default avatar for users without a custom photo
 
 - **Admin Controls**
   - View all registered users
@@ -78,6 +80,9 @@ A secure user management system built with PHP that uses JSON files for data sto
     - `favicon_light_theme.svg` - Light theme favicon (SVG format)
 - `data/` - Data storage directory
   - `users.json` - User data storage
+- `uploads/` - User uploaded content
+  - `profile_photos/` - Storage for user profile photos
+    - `default_avatar.png` - Default avatar image for users without a custom photo
 
 ## Installation
 
@@ -116,7 +121,16 @@ The system comes with two pre-configured accounts:
 - **Member**
   - Can access their dashboard
   - Can view and edit their profile
+  - Can upload and manage their profile photo
   - Cannot access admin features
+
+### Profile Photo Management
+
+- Users can upload a profile photo from their profile page
+- Supported formats: JPG, JPEG, PNG, and GIF
+- Maximum file size: 2MB
+- If no photo is uploaded, a default avatar is displayed
+- The custom file input is styled to match the overall design of the application
 
 ## Security Considerations
 

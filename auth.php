@@ -185,7 +185,8 @@ function handleRegistration() {
         'email' => $email,
         'password' => password_hash($password, PASSWORD_DEFAULT),
         'role' => 'member', // Default role for new users
-        'created_at' => date('Y-m-d H:i:s')
+        'created_at' => date('Y-m-d H:i:s'),
+        'photo' => '' // Empty photo field for new users
     ];
 
     // Add user to the array
@@ -303,7 +304,8 @@ function handleAddUser() {
         'email' => $email,
         'password' => password_hash($password, PASSWORD_DEFAULT),
         'role' => $role,
-        'created_at' => date('Y-m-d H:i:s')
+        'created_at' => date('Y-m-d H:i:s'),
+        'photo' => '' // Empty photo field for new users
     ];
 
     // Add user to the array
@@ -616,6 +618,55 @@ function handleUpdateProfile() {
         }
     }
 
+    // Handle profile photo upload
+    if (isset($_FILES['profile_photo']) && $_FILES['profile_photo']['error'] === UPLOAD_ERR_OK) {
+        $file_tmp = $_FILES['profile_photo']['tmp_name'];
+        $file_name = $_FILES['profile_photo']['name'];
+        $file_size = $_FILES['profile_photo']['size'];
+        $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+
+        // Validate file extension
+        $allowed_extensions = ['jpg', 'jpeg', 'png', 'gif'];
+        if (!in_array($file_ext, $allowed_extensions)) {
+            $_SESSION['error'] = 'Only JPG, JPEG, PNG, and GIF files are allowed.';
+            header('Location: profile.php');
+            exit;
+        }
+
+        // Validate file size (max 2MB)
+        if ($file_size > 2 * 1024 * 1024) {
+            $_SESSION['error'] = 'File size must be less than 2MB.';
+            header('Location: profile.php');
+            exit;
+        }
+
+        // Create uploads directory if it doesn't exist
+        if (!file_exists('uploads/profile_photos') && !mkdir('uploads/profile_photos', 0755, true) && !is_dir('uploads/profile_photos')) {
+            $_SESSION['error'] = 'Failed to create uploads directory.';
+            header('Location: profile.php');
+            exit;
+        }
+
+        // Generate a unique filename
+        $new_file_name = 'user_' . $id . '_' . time() . '.' . $file_ext;
+        $upload_path = 'uploads/profile_photos/' . $new_file_name;
+
+        // Move the uploaded file
+        if (move_uploaded_file($file_tmp, $upload_path)) {
+            // Delete old photo if exists
+            if (isset($users[$user_index]['photo']) && !empty($users[$user_index]['photo']) && file_exists($users[$user_index]['photo']) && strpos($users[$user_index]['photo'], 'uploads/profile_photos/') === 0) {
+                unlink($users[$user_index]['photo']);
+            }
+
+            // Update user data with new photo path
+            $users[$user_index]['photo'] = $upload_path;
+        } else {
+            $_SESSION['error'] = 'Failed to upload profile photo.';
+            header('Location: profile.php');
+            exit;
+        }
+    }
+
     // Update user data
     $users[$user_index]['first_name'] = $first_name;
     $users[$user_index]['last_name'] = $last_name;
@@ -634,6 +685,7 @@ function handleUpdateProfile() {
         $_SESSION['user_last_name'] = $last_name;
         $_SESSION['user_email'] = $email;
         $_SESSION['user_username'] = $username;
+        $_SESSION['user_photo'] = isset($users[$user_index]['photo']) ? $users[$user_index]['photo'] : '';
 
         $_SESSION['success'] = 'Profile updated successfully.';
         header('Location: profile.php');
@@ -679,6 +731,7 @@ function handleLogin() {
                 $_SESSION['user_email'] = $user['email'];
                 $_SESSION['user_username'] = isset($user['username']) ? $user['username'] : '';
                 $_SESSION['user_role'] = isset($user['role']) ? $user['role'] : 'member';
+                $_SESSION['user_photo'] = isset($user['photo']) ? $user['photo'] : '';
 
                 // Set last activity timestamp for session timeout
                 $_SESSION['last_activity'] = time();

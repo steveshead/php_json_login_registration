@@ -97,9 +97,7 @@ switch ($action) {
         exit;
 }
 
-/**
- * Handle user registration
- */
+// Handle user registration
 function handleRegistration() {
     global $users_file;
 
@@ -204,9 +202,7 @@ function handleRegistration() {
     }
 }
 
-/**
- * Handle adding a new user from admin panel
- */
+// Handle adding a new user from admin panel
 function handleAddUser() {
     global $users_file;
 
@@ -323,9 +319,7 @@ function handleAddUser() {
     }
 }
 
-/**
- * Handle editing a user from admin panel
- */
+// Handle editing a user from admin panel
 function handleEditUser() {
     global $users_file;
 
@@ -452,9 +446,7 @@ function handleEditUser() {
     }
 }
 
-/**
- * Handle deleting a user from admin panel
- */
+// Handle deleting a user from admin panel
 function handleDeleteUser() {
     global $users_file;
 
@@ -514,9 +506,7 @@ function handleDeleteUser() {
     }
 }
 
-/**
- * Handle user profile update
- */
+// Handle user profile update
 function handleUpdateProfile() {
     global $users_file;
 
@@ -697,9 +687,7 @@ function handleUpdateProfile() {
     }
 }
 
-/**
- * Handle user login
- */
+// Handle user login
 function handleLogin() {
     global $users_file;
 

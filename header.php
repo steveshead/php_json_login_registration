@@ -24,6 +24,9 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['last_activity'])) {
 
         // Start a new session for the message
         session_start();
+
+        // Set a specific message for session expiration
+        $_SESSION['session_expired'] = true;
         $_SESSION['error'] = 'Your session has expired due to inactivity. Please log in again.';
 
         // Redirect to login page if not already there

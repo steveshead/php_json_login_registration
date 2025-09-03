@@ -6,6 +6,11 @@ $pageTitle = 'Welcome to Our System';
 include 'header.php';
 ?>
 
+<?php if (isset($_SESSION['session_expired']) && $_SESSION['session_expired']): ?>
+    <div class="error">Your session has expired due to inactivity. Please log in again.</div>
+    <?php unset($_SESSION['session_expired']); ?>
+<?php endif; ?>
+
 <?php if (isset($_SESSION['user_first_name']) && !empty($_SESSION['user_first_name'])): ?>
     <h1>Welcome <span class="blue"><?= $_SESSION['user_first_name'] ?></span>, to the Login & Registration System</h1>
 <?php else: ?>
